@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Io
 import qs.Commons
 import qs.Ui
 
@@ -61,6 +62,17 @@ BarWidget {
       root.injectPanel()
       Qt.callLater(root.injectPanel)
     }
+  }
+
+  IpcHandler {
+    target: "io.rendarth.chromarchy"
+
+    function open(): void { root.broadcast("open") }
+    function close(): void { root.broadcast("close") }
+    function toggle(): void { root.broadcast("togglePanel") }
+    function next(): void { if (panelLoader.item) panelLoader.item.nextWallpaper() }
+    function prev(): void { if (panelLoader.item) panelLoader.item.prevWallpaper() }
+    function save(): void { if (panelLoader.item) panelLoader.item.saveCurrent() }
   }
 
   BarIconButton {

@@ -6,7 +6,7 @@ Chromarchy is an intelligent wallpaper management and rotation plugin for the [O
 
 Whether you switch themes on the fly, want complementary contrast hues, desire automated timed rotation with background pre-fetching, or want strict control over color harmony thresholds, Chromarchy delivers a stutter-free, deeply integrated experience.
 
-![Chromarchy Preview](preview.png)
+![Chromarchy Wallpaper Rotation Demo](demo.gif)
 
 ---
 
@@ -86,6 +86,7 @@ Chromarchy installs directly into your Omarchy plugins directory:
 │   ├── score-wallpapers.sh  # Bash wrapper for wallpaper candidate ranking
 │   └── test_backend.sh      # Automated unit and integration test suite
 ├── LICENSE                  # MIT License
+├── demo.gif                 # Animated live rotation demo
 ├── preview.png              # Marketplace preview asset
 └── README.md                # Documentation
 ```
