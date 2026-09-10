@@ -52,6 +52,15 @@ Reload the shell to activate:
 omarchy restart shell
 ```
 
+## Removal
+
+To remove the plugin:
+
+```bash
+omarchy plugin remove io.rendarth.chromarchy
+omarchy restart shell
+```
+
 ## Bar Placement
 
 To place Chromarchy in a different section of the bar:
