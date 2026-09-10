@@ -202,6 +202,8 @@ Panel {
   readonly property string statusMessage: cacheManager.statusText
   readonly property int cachedCount: cacheManager.currentBatch ? cacheManager.currentBatch.length : 0
   readonly property int historyCount: cacheManager.history ? cacheManager.history.length : 0
+  readonly property string activeThemeName: cacheManager.activeThemeName || "eventide"
+  readonly property string displayThemeName: activeThemeName ? (activeThemeName.charAt(0).toUpperCase() + activeThemeName.slice(1)) : "Theme"
 
   // Quick Action methods
   function nextWallpaper() {
@@ -427,7 +429,73 @@ Panel {
             id: mainColumn
             visible: root.activeView === "MAIN"
             width: flickable.width - (flickable.contentHeight > flickable.height ? Style.space(12) : 0)
-            spacing: Style.space(12)
+            spacing: Style.space(10)
+
+            // Active Theme & Target Swatches Row
+            RowLayout {
+              width: parent.width
+              spacing: Style.space(8)
+
+              BorderSurface {
+                radius: Style.space(6)
+                color: Qt.rgba(Color.accent.r, Color.accent.g, Color.accent.b, 0.16)
+                borderSpec: Border.flat(Color.accent, 1)
+                implicitHeight: Style.space(26)
+                implicitWidth: themeRow.implicitWidth + Style.space(20)
+
+                Row {
+                  id: themeRow
+                  anchors.centerIn: parent
+                  spacing: Style.space(6)
+                  Text {
+                    text: "󰏘"
+                    font.family: Style.font.family
+                    font.pixelSize: Style.font.caption
+                    color: Color.accent
+                  }
+                  Text {
+                    text: root.displayThemeName
+                    font.family: Style.font.family
+                    font.pixelSize: Style.font.caption
+                    font.bold: true
+                    color: Color.popups.text
+                  }
+                }
+              }
+
+              Text {
+                text: "Theme Colors:"
+                font.family: Style.font.family
+                font.pixelSize: Style.font.caption
+                color: Qt.darker(Color.popups.text, 1.4)
+              }
+
+              Row {
+                spacing: Style.space(6)
+                Repeater {
+                  model: root.colorKeys
+                  Rectangle {
+                    width: Style.space(18)
+                    height: Style.space(18)
+                    radius: Style.space(9)
+                    color: root.getHexForThemeKey(modelData)
+                    border.width: index === 0 ? 2 : 1
+                    border.color: index === 0 ? Color.accent : Qt.rgba(1, 1, 1, 0.5)
+
+                    Text {
+                      anchors.centerIn: parent
+                      text: String(index + 1)
+                      font.family: Style.font.family
+                      font.pixelSize: Style.space(9)
+                      font.bold: true
+                      color: (Qt.colorEqual(parent.color, "#000000") || parent.color.hslLightness < 0.5) ? "#ffffff" : "#000000"
+                    }
+                  }
+                }
+              }
+
+              Item { Layout.fillWidth: true }
+            }
 
             // Wallpaper Preview Card
             BorderSurface {
